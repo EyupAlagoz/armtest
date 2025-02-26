@@ -10,7 +10,7 @@ if [ -z "$DOMAIN_NAME" ]; then
 fi
 
 # Nginx yapılandırması
-NGINX_CONF="/home/azureuser/devops/nginx/default.conf"
+NGINX_CONF="/home/azureuser/devops/az-market-test/nginx/default.conf"
 if [ -f "$NGINX_CONF" ]; then
   sed -i "s/server_name .*/server_name $DOMAIN_NAME;/" "$NGINX_CONF"
   echo "Nginx yapılandırması güncellendi."
