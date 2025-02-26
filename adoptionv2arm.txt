@@ -20,9 +20,16 @@ else
 fi
 
 # env update
-/home/azureuser/devops/az-market-test/adoption-v2-frontend-main/.env
+ENV_FILE="/home/azureuser/devops/az-market-test/adoption-v2-frontend-main/.env"
+if [ -f "$ENV_FILE" ]; then
+  sed -i "s|VITE_API_URL_PROD=https://[^/]*/api|VITE_API_URL_PROD=https://$DOMAIN_NAME/api|" "$ENV_FILE"
+  echo "Frontend .env dosyası güncellendi: https://$domain_name/api"
+else
+  echo "Frontend .env dosyası bulunamadı: $ENV_FILE"
+  exit 1
+fi
 
-# Nginx ve yeniden başlatma
-sudo docker compose up -d --build --force-recreate || { echo "Compose yeniden başlatılamadı."; exit 1; }
+# Docker Compose ve yeniden başlatma
+sudo docker compose up -d --build --force-recreate || { echo "Docker Compose yeniden başlatılamadı."; exit 1; }
 
 echo "Tüm işlemler başarıyla tamamlandı."
