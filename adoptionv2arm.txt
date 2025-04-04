@@ -38,6 +38,10 @@ find /home/azureuser/devops/az-market-test -name "Dockerfile" | while read docke
   fi
 done
 
+# Docker system prune
+echo "Docker gereksiz veriler temizleniyor (prune)..."
+sudo docker system prune -f
+
 # Docker Compose ve yeniden başlatma
 cd /home/azureuser/devops/az-market-test && sudo docker compose up -d --build --force-recreate || { echo "Docker Compose yeniden başlatılamadı."; exit 1; }
 
